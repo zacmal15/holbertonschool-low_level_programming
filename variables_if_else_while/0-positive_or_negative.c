@@ -2,10 +2,10 @@
 #include <time.h>
 #include <stdio.h>
 
-/*
- * main:random number generator
+/**
+ * main - entry point for C program
  *
- * return - 0 is true
+ * Return: Always 0
  */
 int main(void)
 {
