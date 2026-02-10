@@ -1,8 +1,12 @@
 #include <stdlib.h>
 #include <time.h>
-/* more headers goes there */
+#include <stdio.h>
 
-/* betty style doc for function main goes there */
+/*
+ * main - random number generator
+ *
+ * return - 0 is true
+ */
 int main(void)
 {
 	int n;
