@@ -7,7 +7,7 @@
  *
  * return - 0 is true
  */
-int main(void);
+int main(void)
 {
 	int n;
 
