@@ -5,10 +5,11 @@
  * _putchar - writes the character c to stdout
  * @c: The character to print
  *
- * Return: 1 on success, -1 on error
+ * Return: success for _putchar is 1
  */
 int _putchar(char c);
 void print_alphabet(void);
+void print_alphabet_x10(void);
 
 #endif /* MAIN_H */
 
