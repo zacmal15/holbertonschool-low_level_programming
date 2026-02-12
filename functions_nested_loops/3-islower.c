@@ -1,9 +1,10 @@
-#include "amin.h"
+#include "main.h"
+
 /**
  * _islower - checks for lowercase letters
  * @c: character to check
  *
- * Return: 1 if lowercase
+ * Return: 1 if lowercase, otherwise 0 if failed
  */
 int _islower(int c)
 {
