@@ -4,7 +4,7 @@
  * print_triangle - prints triangle in terminal
  * @size: tells us size of triangle
  */
-void print_triangle(int size);
+void print_triangle(int size)
 {
 	int row;
 	int space;
