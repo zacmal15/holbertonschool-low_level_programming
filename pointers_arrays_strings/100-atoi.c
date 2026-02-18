@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _parse_number - extracts digits and determines sign
+ * parse_number - extracts digits and determines sign
  * @s: input tring
  * @sign: pointer to sign multiplier
  * @started: pointer to digit start flag
@@ -40,6 +40,13 @@ static unsigned int parse_number(char *s, int *sign, int *started)
 
 	return (result);
 }
+
+/**
+ * _atoi - converts string to int
+ * @s: string to convert
+ *
+ * Return: converted int value
+ */
 
 int _atoi(char *s)
 {
