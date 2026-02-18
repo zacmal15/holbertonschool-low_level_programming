@@ -1,39 +1,63 @@
 #include "main.h"
 
 /**
- * _atoi - converts string to int
- * @s: string to convert
+ * _parse_number - extracts digits and determines sign
+ * @s: input tring
+ * @sign: pointer to sign multiplier
+ * @started: pointer to digit start flag
  *
- * Return: int value
+ * Return: parsed unsigned int value
  */
-int _atoi(char *s)
+static unsigned int parse_number(char *s, int *sign, int *started)
 {
-	int sign = 1;
-	int result = 0;
-	int started = 0;
+	unsigned int result = 0;
 
 	while (*s != '\0')
 	{
-		if (!started && (*s == '-' || *s == '+'))
+		if (!(*started) && (*s == '-' || *s == '+'))
 		{
 			if (*s == '-')
-				sign = -sign;
+				*sign = -(*sign);
 		}
 		else if (*s >= '0' && *s <= '9')
 		{
-			started = 1;
-			result = result * 10 + (*s - '0');
+			*started = 1;
+			if (result > 214748364U)
+				result = 2147483647U;
+			else
+			{
+				result = result * 10 + (unsigned int)(*s - '0');
+				if (result > 2147483647U)
+					result = 2147483647U;
+			}
 		}
-		else if (started)
+		else if (*started)
 		{
 			break;
 		}
-
 		s++;
 	}
+
+	return (result);
+}
+
+int _atoi(char *s)
+{
+	int sign = 1;
+	int started = 0;
+	unsigned int result;
+
+	result = parse_number(s, &sign, &started);
 
 	if (!started)
 		return (0);
 
-	return (result * sign);
+	if (sign == -1)
+	{
+		if (result >= 2147483648U)
+			return (-2147483648);
+		return (-(int)result);
+	}
+
+	return ((int)result);
 }
