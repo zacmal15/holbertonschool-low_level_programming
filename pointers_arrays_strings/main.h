@@ -26,3 +26,7 @@ char *_memcpy(char *dest, char *src, unsigned int n);
 char *_strchr(char *s, char c);
 
 #endif
+
+#ifndef NULL
+#define NULL ((void *)0)
+#endif
