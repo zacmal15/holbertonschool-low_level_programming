@@ -5,7 +5,7 @@
  * _strlen - returns the length of a string
  * @s: string
  *
- * Return: length
+ * Return: length of s
  */
 static int _strlen(char *s)
 {
@@ -18,11 +18,13 @@ static int _strlen(char *s)
 }
 
 /**
- * _copy_str - copies a string including the null terminator
+ * _strcpy - copies a string (including the null terminator)
  * @dest: destination buffer
  * @src: source string
+ *
+ * Return: dest
  */
-static void _copy_str(char *dest, char *src)
+static char *_strcpy(char *dest, char *src)
 {
 	int i = 0;
 
@@ -31,44 +33,52 @@ static void _copy_str(char *dest, char *src)
 		dest[i] = src[i];
 		i++;
 	}
+
 	dest[i] = '\0';
+
+	return (dest);
 }
 
 /**
- * new_dog - creates a new dog (deep copies name and owner)
- * @name: name of dog
- * @age: age of dog
- * @owner: owner of dog
+ * new_dog - creates a new dog
+ * @name: name of the dog
+ * @age: age of the dog
+ * @owner: owner of the dog
  *
- * Return: pointer to new dog, or NULL on failure
+ * Return: pointer to the new dog, or NULL on failure
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
 	dog_t *d;
-	char *p;
 	int name_len, owner_len;
-	unsigned long total;
 
 	if (name == NULL || owner == NULL)
 		return (NULL);
 
-	name_len = _strlen(name);
-	owner_len = _strlen(owner);
-
-	total = sizeof(*d) + (name_len + 1) + (owner_len + 1);
-
-	d = malloc(total);
+	d = malloc(sizeof(dog_t));
 	if (d == NULL)
 		return (NULL);
 
-	p = (char *)d + sizeof(*d);
+	name_len = _strlen(name);
+	d->name = malloc(sizeof(char) * (name_len + 1));
+	if (d->name == NULL)
+	{
+		free(d);
+		return (NULL);
+	}
 
-	d->name = p;
-	d->owner = p + name_len + 1;
+	owner_len = _strlen(owner);
+	d->owner = malloc(sizeof(char) * (owner_len + 1));
+	if (d->owner == NULL)
+	{
+		free(d->name);
+		free(d);
+		return (NULL);
+	}
+
+	_strcpy(d->name, name);
+	_strcpy(d->owner, owner);
 	d->age = age;
-
-	_copy_str(d->name, name);
-	_copy_str(d->owner, owner);
 
 	return (d);
 }
