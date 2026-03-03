@@ -18,13 +18,11 @@ static int _strlen(char *s)
 }
 
 /**
- * _strcpy - copies a string
+ * _memcpy_str - copies a string including the null terminator
  * @dest: destination buffer
  * @src: source string
- *
- * Return: dest
  */
-static char *_strcpy(char *dest, char *src)
+static void _memcpy_str(char *dest, char *src)
 {
 	int i = 0;
 
@@ -34,43 +32,43 @@ static char *_strcpy(char *dest, char *src)
 		i++;
 	}
 	dest[i] = '\0';
-
-	return (dest);
 }
 
 /**
- * new_dog - creates a new dog
- * @name: name of the dog
- * @age: age of the dog
- * @owner: owner of the dog
+ * new_dog - creates a new dog (deep copies name and owner)
+ * @name: name of dog
+ * @age: age of dog
+ * @owner: owner of dog
  *
  * Return: pointer to new dog, or NULL on failure
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
 	dog_t *d;
+	char *block;
 	int name_len, owner_len;
+	unsigned long total;
 
 	if (name == NULL || owner == NULL)
 		return (NULL);
 
-	d = malloc(sizeof(dog_t));
-	if (d == NULL)
-		return (NULL);
-
 	name_len = _strlen(name);
-	d->name = malloc(sizeof(char) * (name_len + 1));
-	if (d->name == NULL)
-		return (NULL);
-
 	owner_len = _strlen(owner);
-	d->owner = malloc(sizeof(char) * (owner_len + 1));
-	if (d->owner == NULL)
+
+	total = sizeof(dog_t) + (name_len + 1) + (owner_len + 1);
+
+	block = malloc(total);
+	if (block == NULL)
 		return (NULL);
 
-	_strcpy(d->name, name);
-	_strcpy(d->owner, owner);
+	d = (dog_t *)block;
+
+	d->name = block + sizeof(dog_t);
+	d->owner = d->name + name_len + 1;
 	d->age = age;
+
+	_memcpy_str(d->name, name);
+	_memcpy_str(d->owner, owner);
 
 	return (d);
 }
