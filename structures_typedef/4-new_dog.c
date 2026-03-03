@@ -18,11 +18,11 @@ static int _strlen(char *s)
 }
 
 /**
- * _memcpy_str - copies a string including the null terminator
+ * _copy_str - copies a string including the null terminator
  * @dest: destination buffer
  * @src: source string
  */
-static void _memcpy_str(char *dest, char *src)
+static void _copy_str(char *dest, char *src)
 {
 	int i = 0;
 
@@ -45,7 +45,7 @@ static void _memcpy_str(char *dest, char *src)
 dog_t *new_dog(char *name, float age, char *owner)
 {
 	dog_t *d;
-	char *block;
+	char *p;
 	int name_len, owner_len;
 	unsigned long total;
 
@@ -55,20 +55,20 @@ dog_t *new_dog(char *name, float age, char *owner)
 	name_len = _strlen(name);
 	owner_len = _strlen(owner);
 
-	total = sizeof(dog_t) + (name_len + 1) + (owner_len + 1);
+	total = sizeof(*d) + (name_len + 1) + (owner_len + 1);
 
-	block = malloc(total);
-	if (block == NULL)
+	d = malloc(total);
+	if (d == NULL)
 		return (NULL);
 
-	d = (dog_t *)block;
+	p = (char *)d + sizeof(*d);
 
-	d->name = block + sizeof(dog_t);
-	d->owner = d->name + name_len + 1;
+	d->name = p;
+	d->owner = p + name_len + 1;
 	d->age = age;
 
-	_memcpy_str(d->name, name);
-	_memcpy_str(d->owner, owner);
+	_copy_str(d->name, name);
+	_copy_str(d->owner, owner);
 
 	return (d);
 }
