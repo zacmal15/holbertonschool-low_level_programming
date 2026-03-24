@@ -12,10 +12,10 @@
  *
  * Description: doubly linked list node structure
  */
-typedef struct dlistin_s
+typedef struct dlistint_s
 {
 	int n;
-	struct dlistin_s *prev;
+	struct dlistint_s *prev;
 	struct dlistint_s *next;
 } dlistint_t;
 
